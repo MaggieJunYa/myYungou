@@ -12,9 +12,9 @@ class wechatCallbackapiTest
     public function valid()
     {
         $echoStr = $_GET["echostr"];
-
         //valid signature , option
         if($this->checkSignature()){
+            ob_clean();
             echo $echoStr;
             exit;
         }
@@ -64,7 +64,6 @@ class wechatCallbackapiTest
         if (!defined("TOKEN")) {
             throw new Exception('TOKEN is not defined!');
         }
-
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
         $nonce = $_GET["nonce"];

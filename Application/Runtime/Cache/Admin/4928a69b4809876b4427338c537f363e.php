@@ -68,6 +68,8 @@
             text-align: center;
         }
     </style>
+    <script type="text/javascript" src="<?php echo C('AD_JS');?>jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="<?php echo C('AD_JS');?>layer.js"></script>
 </head>
 
 <body>
@@ -84,7 +86,7 @@
                             </tr>
                         </table></td>
                         <td><div align="right"><span class="STYLE1">
-              <a href="<?php echo U('tianjia');?>"><img src="<?php echo C('AD_IMG_URL');?>add.gif" width="10" height="10" /> 添加</a>   &nbsp;
+              <a href="<?php echo U('addAuth');?>"><img src="<?php echo C('AD_IMG_URL');?>add.gif" width="10" height="10" /> 添加</a>   &nbsp;
               </span>
                             <span class="STYLE1"> &nbsp;</span></div></td>
                     </tr>
@@ -98,8 +100,14 @@
                 <td width="4%" height="20" bgcolor="d3eaef" class="STYLE10"><div align="center">
                     <input type="checkbox" name="checkbox" id="checkbox" />
                 </div></td>
-                <td width="5%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">权限id</span></div></td>
-                <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">名称</span></div></td>
+                <td width="5%" height="20" bgcolor="d3eaef" class="STYLE6">
+                    <div align="center">
+                        <span class="STYLE10">权限id</span>
+                    </div>
+                </td>
+                <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
+                    <div align="center">
+                        <span class="STYLE10">名称</span></div></td>
                 <td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">权限pid</span></div></td>
                 <td width="20%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">控制器</span></div></td>
                 <td width="20%" height="20" bgcolor="d3eaef" class="STYLE6"><div align="center"><span class="STYLE10">操作方法</span></div></td>
@@ -109,16 +117,58 @@
                     <td height="20" bgcolor="#FFFFFF"><div align="center">
                         <input type="checkbox" name="checkbox2" id="checkbox2" />
                     </div></td>
-                    <td height="20" bgcolor="#FFFFFF" class="STYLE6"><div align="center"><span class="STYLE19"><?php echo ($v["auth_id"]); ?></span></div></td>
+                    <td height="20" bgcolor="#FFFFFF" class="STYLE6">
+                        <div align="center">
+                            <span class="STYLE19"><?php echo ($v["auth_id"]); ?></span>
+                        </div>
+                    </td>
                     <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="left"><?php echo str_repeat('&nbsp;∟',$v['auth_level']); echo ($v["auth_name"]); ?></div></td>
                     <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($v["auth_pid"]); ?></div></td>
                     <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($v["auth_c"]); ?></div></td>
                     <td height="20" bgcolor="#FFFFFF" class="STYLE19"><div align="center"><?php echo ($v["auth_a"]); ?></div></td>
-                    <td height="20" bgcolor="#FFFFFF"><div align="center" class="STYLE21">
-                        <img src="<?php echo C('AD_IMG_URL');?>del.gif" width="10" height="10" /> <a href="<?php echo U('delete',array('auth_id'=>$v['auth_id']));?>" style="color:rgb(59,99,117)" onclick="return confirm('确认删除？')">删除</a> | 查看 | <a href="<?php echo U('upd',array('auth_id'=>$v['auth_id']));?>" style="color:rgb(59,99,117)"><img src="<?php echo C('AD_IMG_URL');?>edit.gif" width="10" height="10" /> 编辑</a></div></td>
+                    <td height="20" bgcolor="#FFFFFF">
+                        <div align="center" class="STYLE21">
+                            <img src="<?php echo C('AD_IMG_URL');?>del.gif" width="10" height="10" />
+                            <a class="delbtn" style="color:rgb(59,99,117)">删除</a> | 查看 |
+                            <a href="<?php echo U('updAuth',array('auth_id'=>$v['auth_id']));?>" style="color:rgb(59,99,117)">
+                                <img src="<?php echo C('AD_IMG_URL');?>edit.gif" width="10" height="10" /> 编辑
+                            </a>
+                        </div>
+                    </td>
                 </tr><?php endforeach; endif; ?>
         </table></td>
     </tr>
 </table>
 </body>
+<script type="text/javascript">
+        $('.delbtn').click(function () {
+            var authId = $(this).parent().parent().parent().find("td:eq(1):first span").html();
+            layer.confirm('确定要删除该权限吗？', {
+                btn: ['确定删除','容我想想'] //按钮
+            }, function(){
+                $.ajax({
+                    url:"<?php echo U('delAuth');?>",
+                    data:{'auth_id':authId},
+                    dataType:'json',
+                    type:'post',
+                    success:function (msg) {
+                        //console.log(msg.status);
+                        if(msg.status == 200){
+                            layer.msg(msg.message);
+                            setTimeout( 'window.location.href="<?php echo U('showlist');?>"',2000);
+                        }else if(msg.status == 202){
+                            layer.msg(msg.message);
+                        }else if(msg.status==204){
+                            layer.msg(msg.message);
+                        }
+                    }
+                })
+
+            }, function(){
+                layer.msg( {
+                    time: 1000,
+                });
+            });
+        })
+</script>
 </html>

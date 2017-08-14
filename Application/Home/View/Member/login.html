@@ -1,0 +1,35 @@
+{__NOLAYOUT__}
+<layout name="Pub/layout2" />
+<section>
+    <div class="pc-login-bj">
+        <div class="center clearfix">
+            <div class="fl"></div>
+            <div class="fr pc-login-box">
+                <div class="pc-login-title"><h2>用户登录</h2></div>
+                <form action="" method="post">
+                    <div class="pc-sign">
+                        <input type="text" placeholder="邮箱/手机号" name="username" id="username">
+                        <span style="color:#f00;">{$activeError|default=''}</span>
+                    </div>
+                    <div class="pc-sign">
+                        <input type="password" placeholder="请输入您的密码" name="password" id="password">
+                        <span style="color:#f00;">{$passError|default=''}</span>
+                    </div>
+                    <div class="pc-submit-ss">
+                        <input type="submit" value="登录">
+                    </div>
+                    <div class="pc-item-san clearfix">
+                        <a href="#"><img src="{:C('HO_IM')}icon/weixin.png" alt="">微信登录</a>
+                        <a href="#"><img src="{:C('HO_IM')}icon/weibo.png" alt="">微博登录</a>
+                        <a href="#" style="margin-right:0"><img src="{:C('HO_IM')}icon/tengxun.png" alt="">QQ登录</a>
+                    </div>
+                    <div class="pc-reg">
+                        <a href="#">忘记密码</a>
+                        <a href="{:U('register')}" class="red">免费注册</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
