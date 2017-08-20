@@ -42,7 +42,6 @@ class GoodsController extends AdminController{
             $this->display();
         }
     }
-
     //处理LOGO图片 goods_id为0表示新增，非0表示修改
     //对于要修改的图片，需将原来的图片地址删除
     public function dealLogo($goods_id=0){
