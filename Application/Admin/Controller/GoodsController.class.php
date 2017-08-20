@@ -18,7 +18,6 @@ class GoodsController extends AdminController{
         }
         $this->assign('info',$info);
         $this->display();
-
     }
     //添加商品
     public function addGoods(){
