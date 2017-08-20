@@ -9,6 +9,7 @@ return array(
     'HO_IMG'    =>  '/Public/Home/images/',
     'HO_IM'     =>  '/Public/Home/img/',
     'HO_JS'     =>  '/Public/Home/js/',
+    //'SHOW_PAGE_TRACE' =>true,
    /*数据库配置*/
     'DB_TYPE'=>'mysql',
     'DB_HOST'=>'127.0.0.1',
@@ -21,5 +22,7 @@ return array(
     'ACCOUNT_SID'   =>  '8a216da85d158d1b015d3ebb58ef118a',
     'ACCOUNT_TOKEN' =>  '04f3d7c353164844bcf190bd99b96e58',
     'APP_ID'        =>  '8a216da85d158d1b015d3ebb5a4c1190',
+
+    'URL_HTML_SUFFIX'=>''
 
 );

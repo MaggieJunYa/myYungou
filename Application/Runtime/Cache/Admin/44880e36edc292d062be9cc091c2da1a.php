@@ -89,7 +89,7 @@
                         <a class="delGoods">删除 |</a>
                         <a class="createStaticHtml"> 静态化</a> |
                         <a href="<?php echo U('seckill/addseckill',[goods_id=>$goods['goods_id']]);?>" style="color:#000;"> 参加秒杀</a> |
-                        <a  href="<?php echo U('xiugai',[goods_id=>$goods['goods_id']]);?>" style="color:#000;">
+                        <a style="color:#000;" class="updGoods" href="<?php echo U('updGoods',[goods_id=>$goods['goods_id']]);?>">
                             <img src="/Public/resources/admin/images/edit.gif" width="10" height="10"  /> 编辑
                         </a>
                     </div>
@@ -136,7 +136,6 @@
                 });
             });
         })
-
 
     })
 

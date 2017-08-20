@@ -10,6 +10,7 @@ use Admin\Common\AdminController;
 class GoodsController extends AdminController{
     //展示商品
     public function showlist(){
+        //echo (U('addGoods'));die;
         $info = D('Goods')->getGoodsInfo();
         foreach($info['list'] as $k=>$v){
             $v['goods_small_logo'] = substr($v['goods_small_logo'],1);
@@ -17,6 +18,7 @@ class GoodsController extends AdminController{
         }
         $this->assign('info',$info);
         $this->display();
+
     }
     //添加商品
     public function addGoods(){
@@ -131,4 +133,27 @@ class GoodsController extends AdminController{
             }
         }
     }
+    //更改商品数据
+    public function updGoods(){
+        $goodsId = I('get.goods_id');
+        if(IS_POST){
+            $res = $this->dealLogo($goodsId);
+            echo $res;die;
+            $this->deal_pics($goodsId);
+            $data['goods_id'] = $goodsId;
+            $data['goods_introduce'] = \fangXSS($_POST['goods_introduce']);
+            $data['upd_time'] = time();     //更新修改时间
+            if($res = D('Goods')->save($data)){
+                $this->success("修改成功",U('showlist'),2);
+            }else{
+                $this->success("修改失败",U('showlist'),2);
+            }
+        }else{
+            $info = D('Goods')->find($goodsId);
+            $this->assign('info',$info);
+            $this->display();
+        }
+    }
+
+
 }
